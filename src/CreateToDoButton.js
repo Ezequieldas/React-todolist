@@ -2,8 +2,19 @@ import React from "react";
 import './CreateToDoButton.css';
 
 function CreateToDoButton(){
+  const onClickButton = (msg) => {
+    alert(msg)
+  }
+
     return(
-        <button className="CreateTodoButton">+</button>
+        <button 
+        className="CreateTodoButton"
+        onClick={() =>onClickButton('modal')}
+        >
+
+          +
+          
+          </button>
     );
 }
 
