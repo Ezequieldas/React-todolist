@@ -1,46 +1,52 @@
-import React from "react";  
+import React from "react";
+import { ToDoContext } from "./ToDoContext";
 import { ToDoCounter } from "./ToDoCounter";
 import { ToDoSearch } from "./ToDoSearch";
 import { ToDoList } from "./ToDoList";
 import { ToDoItem } from "./ToDoItem";
 import { CreateToDoButton } from "./CreateToDoButton";
+import { Modal } from "./Modal";
+import { ToDoForm } from "./ToDoForm";
 
+function AppUI() {
+  const {
+    error,
+    loading,
+    searchToDo,
+    completeToDos,
+    deleteToDo,
+    openModal,
+    setOpenModal,
+  } = React.useContext(ToDoContext);
 
-function AppUI({
-  totalToDo,
-  completedToDo,
-  state,
-  setState,
-  searchToDo,
-  completeToDos,
-  deleteToDo,
-}) {
   return (
     <React.Fragment>
-    <ToDoCounter 
-    total={totalToDo} 
-    completed={completedToDo} 
-    />
+      <ToDoCounter />
+      <ToDoSearch />
 
-    <ToDoSearch 
-    state={state} 
-    setState={setState} 
-    />
+      <ToDoList>
+        {error && <p>Hubo un error...</p>}
+        {loading && <p>Cargando...</p>}
+        {!loading && !searchToDo.length && <p>Tu primer tarea</p>}
+        {searchToDo.map((todo) => (
+          <ToDoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={() => completeToDos(todo.text)}
+            onDelete={() => deleteToDo(todo.text)}
+          />
+        ))}
+      </ToDoList>
+      {!!openModal && (
+        <Modal>
+          <ToDoForm />
+        </Modal>
+      )}
 
-    <ToDoList />
-    {searchToDo.map((todo) => (
-      <ToDoItem 
-      key={todo.text} 
-      text={todo.text} 
-      completed={todo.completed} 
-      onComplete={()=> completeToDos(todo.text)}
-      onDelete={()=> deleteToDo(todo.text)}
-      />
-    ))}
-
-    <CreateToDoButton />
-  </React.Fragment>
-  )
+      <CreateToDoButton setOpenModal={setOpenModal} />
+    </React.Fragment>
+  );
 }
 
-export {AppUI}
+export { AppUI };

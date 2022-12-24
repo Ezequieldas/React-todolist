@@ -1,7 +1,10 @@
 import React from "react";
+import { ToDoContext } from "./ToDoContext";
 import "./ToDoSearch.css";
 
-function ToDoSearch({ state, setState }) {
+function ToDoSearch() {
+  const { state, setState } = React.useContext(ToDoContext)
+
   const onSearchValueChange = (event) => {
     console.log(event.target.value);
     setState(event.target.value);
@@ -10,7 +13,7 @@ function ToDoSearch({ state, setState }) {
   return (
     <input
       className="ToDoSearch"
-      placeholder="Nueva tarea"
+      placeholder="Buscar..."
       value={state}
       onChange={onSearchValueChange}
     />
