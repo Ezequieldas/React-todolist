@@ -1,12 +1,8 @@
 import React from "react";
-import { ToDoContext } from "./ToDoContext";
 import "./ToDoSearch.css";
 
-function ToDoSearch() {
-  const { state, setState } = React.useContext(ToDoContext)
-
+function ToDoSearch({ state, setState, loading }) {
   const onSearchValueChange = (event) => {
-    console.log(event.target.value);
     setState(event.target.value);
   };
 
@@ -16,6 +12,7 @@ function ToDoSearch() {
       placeholder="Buscar..."
       value={state}
       onChange={onSearchValueChange}
+      disabled={loading}
     />
   );
 }
