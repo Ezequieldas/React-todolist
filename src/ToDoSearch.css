@@ -22,3 +22,11 @@
 .ToDoSearch:focus {
   outline-color: #61DAFA;
 }
+
+.ToDoSearch:disabled {
+  opacity: 25%;
+}
+
+p {
+  text-align: center;
+}
